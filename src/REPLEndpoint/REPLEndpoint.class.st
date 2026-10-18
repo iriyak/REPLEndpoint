@@ -1,5 +1,44 @@
 "
 Receives the payload sent as POST in `/repl` and returns, as string, the answer of having evaluated it as a snippet.
+
+If evaluating the snippet signals an Error, Halt or Warning, the answer is an HTTP 500 response with a JSON body. For example, for the snippet `1 / 0`:
+
+{
+  ""status-code"": 500,
+  ""status-message"": ""Internal Server Error"",
+  ""message"": {
+    ""kind"": ""runtime"",
+    ""class"": ""ZeroDivide"",
+    ""messageText"": ""ZeroDivide"",
+    ""description"": ""ZeroDivide"",
+    ""stack"": [ ""SmallInteger>>/"", ""UndefinedObject>>DoIt"" ]
+  },
+  ""method"": ""POST"",
+  ""uri"": ""/repl""
+}
+
+and for the snippet `(3 + ) printString`, which does not compile:
+
+{
+  ""status-code"": 500,
+  ""status-message"": ""Internal Server Error"",
+  ""message"": {
+    ""kind"": ""syntax"",
+    ""class"": ""CodeError"",
+    ""messageText"": ""Variable or expression expected"",
+    ""description"": ""CodeError:RBSyntaxErrorNotice UndefinedObject>>#DoIt 6:Variable or expression expected->"",
+    ""stack"": [ ]
+  },
+  ""method"": ""POST"",
+  ""uri"": ""/repl""
+}
+
+The fields of `message`:
+- kind: 'syntax' for a CodeError (the snippet does not compile), otherwise 'runtime'.
+- class: the class name of the exception.
+- messageText: the exception's message text; its description when it has none (as with ZeroDivide).
+- description: the exception's `asString`.
+- stack: one line per frame of the snippet itself, from the signal point down to its DoIt. It is empty for syntax errors. Runs of identical lines are collapsed to 'line (xN)' and at most 30 lines are kept.
 "
 Class {
 	#name : 'REPLEndpoint',
