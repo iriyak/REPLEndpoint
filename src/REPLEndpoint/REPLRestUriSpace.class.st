@@ -2,12 +2,13 @@
 URI space handler to match the REPLEndpoint
 "
 Class {
-	#name : #REPLRestUriSpace,
-	#superclass : #ZnRestUriSpace,
-	#category : #REPLEndpoint
+	#name : 'REPLRestUriSpace',
+	#superclass : 'ZnRestUriSpace',
+	#category : 'REPLEndpoint',
+	#package : 'REPLEndpoint'
 }
 
-{ #category : #public }
+{ #category : 'public' }
 REPLRestUriSpace >> match: request [
 	(REPLEndpoint match: request)
 		ifNotNil: [ :variables | 

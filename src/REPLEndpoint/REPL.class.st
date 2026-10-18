@@ -9,46 +9,47 @@ Print any results (so you can see the computer’s response).
 Loop back to step 1 (to continue the conversation).
 "
 Class {
-	#name : #REPL,
-	#superclass : #Object,
+	#name : 'REPL',
+	#superclass : 'Object',
 	#classInstVars : [
 		'port',
 		'server'
 	],
-	#category : #REPLEndpoint
+	#category : 'REPLEndpoint',
+	#package : 'REPLEndpoint'
 }
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 REPL class >> envAt: aSymbol ifAbsent: aBlock [
 	^ OSEnvironment current at: aSymbol asString ifAbsent: aBlock
 ]
 
-{ #category : #initializing }
+{ #category : 'initializing' }
 REPL class >> initializePort [
 	^ port := self envAt: 'REPL_PORT' ifAbsent: [ 9099 ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 REPL class >> port [
 	^ port ifNil: [ self initializePort ]
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 REPL class >> port: anInteger [
 	port := anInteger
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 REPL class >> server [
 	^ server
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 REPL class >> start [
 	^ self startOn: self port
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 REPL class >> startOn: aPort [
 	server := ZnServer on: aPort.
 	server
@@ -59,7 +60,7 @@ REPL class >> startOn: aPort [
 	^ server start
 ]
 
-{ #category : #accessing }
+{ #category : 'accessing' }
 REPL class >> stop [
 	server ifNotNil: [ server stop ].
 	server := nil

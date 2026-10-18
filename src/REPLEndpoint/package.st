@@ -1,1 +1,1 @@
-Package { #name : #REPLEndpoint }
+Package { #name : 'REPLEndpoint' }
