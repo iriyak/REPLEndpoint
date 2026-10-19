@@ -1,1 +1,1 @@
-Package { #name : #BaselineOfREPLEndpoint }
+Package { #name : 'BaselineOfREPLEndpoint' }

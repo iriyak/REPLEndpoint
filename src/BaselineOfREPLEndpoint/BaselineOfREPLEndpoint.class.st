@@ -1,10 +1,11 @@
 Class {
-	#name : #BaselineOfREPLEndpoint,
-	#superclass : #BaselineOf,
-	#category : #BaselineOfREPLEndpoint
+	#name : 'BaselineOfREPLEndpoint',
+	#superclass : 'BaselineOf',
+	#category : 'BaselineOfREPLEndpoint',
+	#package : 'BaselineOfREPLEndpoint'
 }
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfREPLEndpoint >> baseline: spec [
 	<baseline>
 	spec
@@ -13,21 +14,21 @@ BaselineOfREPLEndpoint >> baseline: spec [
 			self setUpPackages: spec ]
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfREPLEndpoint >> restServer: spec [
 	spec
 		baseline: 'ZincHTTPComponents'
-		with: [ spec
+"		with: [ spec
 				repository: 'github://svenvc/zinc:v4/repository';
-				loads: #('REST') ]
+				loads: #('REST') ]"
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfREPLEndpoint >> setUpDependencies: spec [
 	self restServer: spec
 ]
 
-{ #category : #baselines }
+{ #category : 'baselines' }
 BaselineOfREPLEndpoint >> setUpPackages: spec [
 	spec
 		package: 'REPLEndpoint'
